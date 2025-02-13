@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Pessoal</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Calendário -->
+    <div class="widget">
+      <h2>Calendário</h2>
+      <input type="text" id="datePicker" placeholder="Selecione uma data">
+    </div>
+
+    <!-- Lista de Tarefas -->
+    <div class="widget">
+      <h2>Lista de Tarefas</h2>
+      <input type="text" id="taskInput" placeholder="Nova tarefa">
+      <button id="addTask">Adicionar</button>
+      <ul id="taskList"></ul>
+    </div>
+
+    <!-- Notas Rápidas -->
+    <div class="widget">
+      <h2>Notas Rápidas</h2>
+      <textarea id="notes" placeholder="Escreva suas notas aqui..."></textarea>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
