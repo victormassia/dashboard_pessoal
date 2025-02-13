@@ -6,6 +6,7 @@
   <title>Dashboard Pessoal</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
@@ -24,10 +25,70 @@
       <ul id="taskList"></ul>
     </div>
 
+    <!-- Tarefas do Dia -->
+    <div class="widget">
+      <h2>Hoje</h2>
+      <ul id="todayTaskList"></ul>
+    </div>
+
     <!-- Notas Rápidas -->
     <div class="widget">
       <h2>Notas Rápidas</h2>
       <textarea id="notes" placeholder="Escreva suas notas aqui..."></textarea>
+    </div>
+
+    <!-- Botão para alternar modo escuro -->
+    <div class="widget">
+      <h2>Configurações</h2>
+      <button id="toggleDarkMode"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <!-- Botão Pomodoro -->
+    <div class="widget">
+      <h2>Pomodoro</h2>
+      <button id="startPomodoro">Iniciar Pomodoro</button>
+    </div>
+
+    <!-- Botão para Metas de 2025 -->
+    <div class="widget">
+      <h2>Metas de 2025</h2>
+      <button id="goToGoals">Ver Metas</button>
+    </div>
+
+    <!-- Botão para Estudos -->
+    <div class="widget">
+      <h2>Estudos</h2>
+      <button id="goToStudy">Ver Assuntos de Estudo</button>
+    </div>
+
+    <!-- Botão para Livros -->
+    <div class="widget">
+      <h2>Livros</h2>
+      <button id="goToBooks">Registrar Livros</button>
+    </div>
+
+    <!-- Botão para Largar Hábitos Ruins -->
+    <div class="widget">
+      <h2>Largar Hábitos Ruins</h2>
+      <button id="goToHabits">Registrar Hábitos</button>
+    </div>
+
+    <!-- Botão para Atividade Física -->
+    <div class="widget">
+      <h2>Atividade Física</h2>
+      <button id="goToExercise">Registrar Exercícios</button>
+    </div>
+
+    <!-- Garrafas de Água -->
+    <div class="widget">
+      <h2>Hidratação</h2>
+      <div id="waterBottles">
+        <div class="bottle" onclick="fillBottle(0)"></div>
+        <div class="bottle" onclick="fillBottle(1)"></div>
+        <div class="bottle" onclick="fillBottle(2)"></div>
+        <div class="bottle" onclick="fillBottle(3)"></div>
+        <div class="bottle" onclick="fillBottle(4)"></div>
+      </div>
     </div>
   </div>
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Livros</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="books">
+    <h1>Registro de Livros</h1>
+    
+    <h2>Livros que Estou Lendo</h2>
+    <input type="text" id="currentBookInput" placeholder="Novo livro">
+    <button id="addCurrentBook">Adicionar Livro</button>
+    <ul id="currentBookList"></ul>
+
+    <h2>Livros Lidos</h2>
+    <input type="text" id="readBookInput" placeholder="Novo livro lido">
+    <button id="addReadBook">Adicionar Livro Lido</button>
+    <ul id="readBookList"></ul>
+
+    <h2>Anotações</h2>
+    <textarea id="noteInput" placeholder="Anotações sobre o livro..."></textarea>
+    <button id="saveNote">Salvar Anotação</button>
+
+    <button onclick="window.history.back()">Voltar</button>
+  </div>
+  <script src="books.js"></script>
+</body>
+</html>

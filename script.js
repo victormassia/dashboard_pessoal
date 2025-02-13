@@ -3,6 +3,7 @@ flatpickr("#datePicker", {
     dateFormat: "Y-m-d",
     onChange: function(selectedDates, dateStr, instance) {
       loadTasks(dateStr);
+      updateTodayTasks(); // Atualiza as tarefas do dia atual
     }
   });
   
@@ -12,6 +13,7 @@ flatpickr("#datePicker", {
   const taskInput = document.getElementById('taskInput');
   const addTaskButton = document.getElementById('addTask');
   const taskList = document.getElementById('taskList');
+  const todayTaskList = document.getElementById('todayTaskList');
   const datePicker = document.getElementById('datePicker');
   
   function addTask() {
@@ -26,6 +28,7 @@ flatpickr("#datePicker", {
       tasksByDate[selectedDate].push(taskText);
       saveTasks();
       loadTasks(selectedDate);
+      updateTodayTasks(); // Atualiza as tarefas do dia atual
       taskInput.value = '';
     } else {
       alert("Por favor, insira uma tarefa e selecione uma data.");
@@ -54,6 +57,7 @@ flatpickr("#datePicker", {
           tasks[index] = newTaskText;
           saveTasks();
           loadTasks(date);
+          updateTodayTasks(); // Atualiza as tarefas do dia atual
         }
       };
   
@@ -63,12 +67,26 @@ flatpickr("#datePicker", {
         tasks.splice(index, 1);
         saveTasks();
         loadTasks(date);
+        updateTodayTasks(); // Atualiza as tarefas do dia atual
       };
   
       li.appendChild(completeButton);
       li.appendChild(editButton);
       li.appendChild(removeButton);
       taskList.appendChild(li);
+    });
+  }
+  
+  function updateTodayTasks() {
+    const today = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+    todayTaskList.innerHTML = ''; // Limpa a lista de tarefas do dia
+  
+    const tasks = tasksByDate[today] || [];
+    
+    tasks.forEach(task => {
+      const li = document.createElement('li');
+      li.textContent = task;
+      todayTaskList.appendChild(li);
     });
   }
   
@@ -82,7 +100,10 @@ flatpickr("#datePicker", {
     if (savedTasks) {
       Object.assign(tasksByDate, JSON.parse(savedTasks));
     }
+    updateTodayTasks(); // Atualiza as tarefas do dia atual ao carregar
   };
+  
+  // Adiciona a tarefa ao clicar no botão
   addTaskButton.addEventListener('click', addTask);
   
   // Notas Rápidas (salvas automaticamente)
@@ -91,3 +112,74 @@ flatpickr("#datePicker", {
   notes.addEventListener('input', () => {
     localStorage.setItem('notes', notes.value);
   });
+  
+  // Lógica do Modo Escuro
+  const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+  
+  toggleDarkModeButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode'); // Adiciona ou remove a classe light-mode
+    
+    // Atualiza o ícone do botão com base no modo atual
+    if (document.body.classList.contains('dark-mode')) {
+      toggleDarkModeButton.innerHTML = '<i class="fas fa-sun"></i>'; // Ícone do sol
+    } else {
+      toggleDarkModeButton.innerHTML = '<i class="fas fa-moon"></i>'; // Ícone da lua
+    }
+  });
+  
+  // Lógica do Pomodoro
+  const startPomodoroButton = document.getElementById('startPomodoro');
+  
+  startPomodoroButton.addEventListener('click', () => {
+    window.location.href = 'pomodoro.html'; // Redireciona para a página do Pomodoro
+  });
+  
+  // Lógica para redirecionar para a página de Metas de 2025
+  const goToGoalsButton = document.getElementById('goToGoals');
+  
+  goToGoalsButton.addEventListener('click', () => {
+    window.location.href = 'goals.html'; // Redireciona para a página de metas
+  });
+  
+  // Lógica para redirecionar para a página de Assuntos de Estudo
+  const goToStudyButton = document.getElementById('goToStudy');
+  
+  goToStudyButton.addEventListener('click', () => {
+    window.location.href = 'study.html'; // Redireciona para a página de estudos
+  });
+  
+  // Lógica para preencher as garrafas de água
+  let filledBottles = 0; // Contador de garrafas preenchidas
+  
+  function fillBottle(index) {
+    const bottles = document.querySelectorAll('.bottle');
+    
+    if (filledBottles < 5) {
+      bottles[index].classList.add('filled'); // Adiciona a classe 'filled' à garrafa clicada
+      filledBottles++; // Incrementa o contador de garrafas preenchidas
+    } else {
+      alert("Você já preencheu todas as garrafas de água!");
+    }
+  }
+
+  // Lógica para redirecionar para a página de Livros
+const goToBooksButton = document.getElementById('goToBooks');
+
+goToBooksButton.addEventListener('click', () => {
+  window.location.href = 'books.html'; // Redireciona para a página de livros
+});
+
+// Lógica para redirecionar para a página de Largar Hábitos Ruins
+const goToHabitsButton = document.getElementById('goToHabits');
+
+goToHabitsButton.addEventListener('click', () => {
+  window.location.href = 'habits.html'; // Redireciona para a página de hábitos
+});
+
+// Lógica para redirecionar para a página de Atividade Física
+const goToExerciseButton = document.getElementById('goToExercise');
+
+goToExerciseButton.addEventListener('click', () => {
+  window.location.href = 'exercise.html'; // Redireciona para a página de exercícios
+});

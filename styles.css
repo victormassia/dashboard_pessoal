@@ -1,46 +1,48 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: #1e1e1e; /* Modo escuro padrão */
+  color: #f4f4f9;
   margin: 0;
   padding: 20px;
 }
 
-.dashboard {
+.dashboard, .study {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.widget {
-  background: white;
+.widget, .study {
+  background: #2a2a2a;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+h2, h1 {
   margin-top: 0;
 }
 
-#datePicker {
+#datePicker, #taskInput, #notes, #goalInput, #studyInput {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #555;
   border-radius: 5px;
   margin-bottom: 10px;
+  background: #3a3a3a;
+  color: #f4f4f9;
 }
 
-#taskList {
+#taskList, #todayTaskList, #goalList, #studyList {
   list-style: none;
   padding: 0;
 }
 
-#taskList li {
+#taskList li, #todayTaskList li, #goalList li, #studyList li {
   display: flex;
   justify-content: space-between;
   padding: 8px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #555;
 }
 
 #taskList li.completed {
@@ -48,15 +50,183 @@ h2 {
   color: gray;
 }
 
-#taskList button {
+#taskList button, #goalList button, #studyList button {
   margin-left: 5px;
+  background: #444;
+  color: #f4f4f9;
 }
 
-#notes {
-  width: 100%;
-  height: 100px;
-  resize: none;
-  padding: 10px;
+/* Estilos para o modo claro */
+body.light-mode {
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+body.light-mode .widget, body.light-mode .study {
+  background: white;
+}
+
+body.light-mode #datePicker, body.light-mode #taskInput, body.light-mode #notes, body.light-mode #goalInput, body.light-mode #studyInput {
+  background: white;
+  color: #333;
   border: 1px solid #ddd;
+}
+
+body.light-mode #taskList li, body.light-mode #todayTaskList li, body.light-mode #goalList li, body.light-mode #studyList li {
+  border-bottom: 1px solid #ddd;
+}
+
+#waterBottles {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.bottle {
+  width: 50px;
+  height: 150px;
+  background-color: #ccc; /* Cor da garrafa vazia */
+  border: 2px solid #555;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.bottle.filled {
+  background-color: #00f; /* Cor da garrafa cheia */
+}
+
+.bottle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0; /* Inicialmente, a altura da água é 0 */
+  background-color: rgba(0, 0, 255, 0.5); /* Cor da água */
+  border-radius: 10px;
+  transition: height 0.3s ease; /* Transição suave ao preencher */
+}
+
+.books {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.books h1, .books h2 {
+  margin-top: 0;
+}
+
+#currentBookInput, #readBookInput, #noteInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
   border-radius: 5px;
+  margin-bottom: 10px;
+  background: #3a3a3a;
+  color: #f4f4f9;
+}
+
+#currentBookList, #readBookList {
+  list-style: none;
+  padding: 0;
+}
+
+#currentBookList li, #readBookList li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #555;
+}
+
+#currentBookList button, #readBookList button {
+  margin-left: 5px;
+  background: #444;
+  color: #f4f4f9;
+}
+
+.habits {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.habits h1, .habits h2 {
+  margin-top: 0;
+}
+
+#habitInput, #goalInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: #3a3a3a;
+  color: #f4f4f9;
+}
+
+#habitList, #goalList {
+  list-style: none;
+  padding: 0;
+}
+
+#habitList li, #goalList li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #555;
+}
+
+#habitList button, #goalList button {
+  margin-left: 5px;
+  background: #444;
+  color: #f4f4f9;
+}
+
+.exercise {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.exercise h1, .exercise h2 {
+  margin-top: 0;
+}
+
+#exerciseInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: #3a3a3a
+}
+
+#exerciseInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: #3a3a3a;
+  color: #f4f4f9;
+}
+
+#exerciseList {
+  list-style: none;
+  padding: 0;
+}
+
+#exerciseList li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #555;
+}
+
+#exerciseList button {
+  margin-left: 5px;
+  background: #444;
+  color: #f4f4f9;
 }
