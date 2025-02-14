@@ -1,232 +1,253 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #1e1e1e; /* Modo escuro padrão */
-  color: #f4f4f9;
-  margin: 0;
-  padding: 20px;
+:root {
+  --primary-color: #4f46e5;
+  --success-color: #22c55e;
+  --danger-color: #ef4444;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --bg-primary: #202124;
+  --bg-secondary: #17191b;
+  --bg-tertiary: #2b313a;
+  --transition-speed: 0.3s;
 }
 
-.dashboard, .study {
+/* Light Mode Variables */
+.light-mode {
+  --primary-color: #4f46e5;
+  --success-color: #22c55e;
+  --danger-color: #ef4444;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --bg-primary: #f3f4f6;
+  --bg-secondary: #17191b;
+  --bg-tertiary: #2b313a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 1.5rem;
 }
 
-.widget, .study {
-  background: #2a2a2a;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.widget {
+  background-color: var(--bg-secondary);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform var(--transition-speed);
 }
 
-h2, h1 {
-  margin-top: 0;
+.widget:hover {
+  transform: translateY(-2px);
 }
 
-#datePicker, #taskInput, #notes, #goalInput, #studyInput {
+.widget-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.widget-header i {
+  margin-right: 0.75rem;
+  color: var(--primary-color);
+}
+
+.widget-header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.widget-content {
+  padding: 1rem;
+}
+
+/* Input Styles */
+input, textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background: #3a3a3a;
-  color: #f4f4f9;
+  padding: 0.75rem;
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 0.5rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  transition: border-color var(--transition-speed);
 }
 
-#taskList, #todayTaskList, #goalList, #studyList {
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Estilos para botões menores e mais modernos */
+.task-input-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.task-input-container input {
+  flex: 1; /* Faz o input ocupar o espaço restante */
+  padding: 0.5rem; /* Reduz o padding */
+  font-size: 0.875rem; /* Tamanho da fonte menor */
+}
+
+.icon-button {
+  width: 2rem; /* Largura menor */
+  height: 2rem; /* Altura menor */
+  border-radius: 0.25rem; /* Bordas mais arredondadas */
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem; /* Tamanho da fonte do ícone */
+}
+
+.icon-button:hover {
+  background-color: var(--primary-color);
+}
+
+/* Estilo para o botão do calendário */
+#datePicker {
+  padding: 0.5rem; /* Reduz o padding */
+  font-size: 0.875rem; /* Tamanho da fonte menor */
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 0.25rem; /* Bordas mais arredondadas */
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  transition: border-color var(--transition-speed);
+}
+
+#datePicker:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Task List Styles */
+.task-list {
   list-style: none;
-  padding: 0;
 }
 
-#taskList li, #todayTaskList li, #goalList li, #studyList li {
+.task-list li {
   display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #555;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--bg-tertiary);
+  margin-bottom: 0.5rem;
 }
 
-#taskList li.completed {
+.task-list li.completed {
+  opacity: 0.7;
   text-decoration: line-through;
-  color: gray;
 }
 
-#taskList button, #goalList button, #studyList button {
-  margin-left: 5px;
-  background: #444;
-  color: #f4f4f9;
+/* Button Styles */
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
-/* Estilos para o modo claro */
-body.light-mode {
-  background-color: #f4f4f9;
-  color: #333;
+.nav-button:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
 }
 
-body.light-mode .widget, body.light-mode .study {
-  background: white;
+.nav-button i {
+  font-size: 1.5rem;
 }
 
-body.light-mode #datePicker, body.light-mode #taskInput, body.light-mode #notes, body.light-mode #goalInput, body.light-mode #studyInput {
-  background: white;
-  color: #333;
-  border: 1px solid #ddd;
-}
-
-body.light-mode #taskList li, body.light-mode #todayTaskList li, body.light-mode #goalList li, body.light-mode #studyList li {
-  border-bottom: 1px solid #ddd;
-}
-
-#waterBottles {
+/* Water Tracker Styles */
+.water-tracker {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  gap: 1rem;
+}
+
+.bottle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .bottle {
-  width: 50px;
-  height: 150px;
-  background-color: #ccc; /* Cor da garrafa vazia */
-  border: 2px solid #555;
-  border-radius: 10px;
+  width: 40px;
+  height: 80px;
+  border: 2px solid var(--primary-color);
+  border-radius: 0.5rem;
   position: relative;
   cursor: pointer;
+  overflow: hidden;
 }
 
-.bottle.filled {
-  background-color: #00f; /* Cor da garrafa cheia */
-}
-
-.bottle::after {
-  content: '';
+.water-level {
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 0; /* Inicialmente, a altura da água é 0 */
-  background-color: rgba(0, 0, 255, 0.5); /* Cor da água */
-  border-radius: 10px;
-  transition: height 0.3s ease; /* Transição suave ao preencher */
-}
-
-.books {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.books h1, .books h2 {
-  margin-top: 0;
-}
-
-#currentBookInput, #readBookInput, #noteInput {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background: #3a3a3a;
-  color: #f4f4f9;
+  height: 0%;
+  background-color: var(--primary-color);
+  transition: height var(--transition-speed);
 }
 
-#currentBookList, #readBookList {
-  list-style: none;
-  padding: 0;
+.bottle.filled .water-level {
+  height: 100%;
 }
 
-#currentBookList li, #readBookList li {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #555;
+.bottle-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
 }
 
-#currentBookList button, #readBookList button {
-  margin-left: 5px;
-  background: #444;
-  color: #f4f4f9;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
 
-.habits {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
 
-.habits h1, .habits h2 {
-  margin-top: 0;
-}
-
-#habitInput, #goalInput {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background: #3a3a3a;
-  color: #f4f4f9;
-}
-
-#habitList, #goalList {
-  list-style: none;
-  padding: 0;
-}
-
-#habitList li, #goalList li {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #555;
-}
-
-#habitList button, #goalList button {
-  margin-left: 5px;
-  background: #444;
-  color: #f4f4f9;
-}
-
-.exercise {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.exercise h1, .exercise h2 {
-  margin-top: 0;
-}
-
-#exerciseInput {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background: #3a3a3a
-}
-
-#exerciseInput {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background: #3a3a3a;
-  color: #f4f4f9;
-}
-
-#exerciseList {
-  list-style: none;
-  padding: 0;
-}
-
-#exerciseList li {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #555;
-}
-
-#exerciseList button {
-  margin-left: 5px;
-  background: #444;
-  color: #f4f4f9;
+  .nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

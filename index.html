@@ -8,86 +8,144 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 </head>
-<body>
-  <div class="dashboard">
-    <!-- Calendário -->
-    <div class="widget">
-      <h2>Calendário</h2>
-      <input type="text" id="datePicker" placeholder="Selecione uma data">
-    </div>
+<body class="dark-mode">
+  <div class="container">
+    <header class="header">
+      <h1>Dashboard Pessoal</h1>
+      <button id="toggleDarkMode" class="icon-button">
+        <i class="fas fa-moon"></i>
+      </button>
+    </header>
 
-    <!-- Lista de Tarefas -->
-    <div class="widget">
-      <h2>Lista de Tarefas</h2>
-      <input type="text" id="taskInput" placeholder="Nova tarefa">
-      <button id="addTask">Adicionar</button>
-      <ul id="taskList"></ul>
-    </div>
+    <div class="dashboard">
+      <!-- Calendário -->
+      <div class="widget">
+        <div class="widget-header">
+          <i class="fas fa-calendar"></i>
+          <h2>Calendário</h2>
+        </div>
+        <div class="widget-content">
+          <input type="text" id="datePicker" placeholder="Selecione uma data">
+        </div>
+      </div>
 
-    <!-- Tarefas do Dia -->
-    <div class="widget">
-      <h2>Hoje</h2>
-      <ul id="todayTaskList"></ul>
-    </div>
+      <!-- Lista de Tarefas -->
+      <div class="widget">
+        <div class="widget-header">
+          <i class="fas fa-tasks"></i>
+          <h2>Lista de Tarefas</h2>
+        </div>
+        <div class="widget-content">
+          <div class="task-input-container">
+            <input type="text" id="taskInput" placeholder="Nova tarefa">
+            <button id="addTask" class="icon-button">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <ul id="taskList" class="task-list"></ul>
+        </div>
+      </div>
 
-    <!-- Notas Rápidas -->
-    <div class="widget">
-      <h2>Notas Rápidas</h2>
-      <textarea id="notes" placeholder="Escreva suas notas aqui..."></textarea>
-    </div>
+      <!-- Tarefas do Dia -->
+      <div class="widget">
+        <div class="widget-header">
+          <i class="fas fa-star"></i>
+          <h2>Hoje</h2>
+        </div>
+        <div class="widget-content">
+          <ul id="todayTaskList" class="task-list"></ul>
+        </div>
+      </div>
 
-    <!-- Botão para alternar modo escuro -->
-    <div class="widget">
-      <h2>Configurações</h2>
-      <button id="toggleDarkMode"><i class="fas fa-moon"></i></button>
-    </div>
+      <!-- Notas Rápidas -->
+      <div class="widget">
+        <div class="widget-header">
+          <i class="fas fa-sticky-note"></i>
+          <h2>Notas Rápidas</h2>
+        </div>
+        <div class="widget-content">
+          <textarea id="notes" placeholder="Escreva suas notas aqui..."></textarea>
+        </div>
+      </div>
 
-    <!-- Botão Pomodoro -->
-    <div class="widget">
-      <h2>Pomodoro</h2>
-      <button id="startPomodoro">Iniciar Pomodoro</button>
-    </div>
+      <!-- Hidratação -->
+      <div class="widget">
+        <div class="widget-header">
+          <i class="fas fa-tint"></i>
+          <h2>Hidratação</h2>
+        </div>
+        <div class="widget-content">
+          <div id="waterBottles" class="water-tracker">
+            <div class="bottle-container">
+              <div class="bottle" onclick="fillBottle(0)">
+                <div class="water-level"></div>
+              </div>
+              <span class="bottle-label">1</span>
+            </div>
+            <div class="bottle-container">
+              <div class="bottle" onclick="fillBottle(1)">
+                <div class="water-level"></div>
+              </div>
+              <span class="bottle-label">2</span>
+            </div>
+            <div class="bottle-container">
+              <div class="bottle" onclick="fillBottle(2)">
+                <div class="water-level"></div>
+              </div>
+              <span class="bottle-label">3</span>
+            </div>
+            <div class="bottle-container">
+              <div class="bottle" onclick="fillBottle(3)">
+                <div class="water-level"></div>
+              </div>
+              <span class="bottle-label">4</span>
+            </div>
+            <div class="bottle-container">
+              <div class="bottle" onclick="fillBottle(4)">
+                <div class="water-level"></div>
+              </div>
+              <span class="bottle-label">5</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <!-- Botão para Metas de 2025 -->
-    <div class="widget">
-      <h2>Metas de 2025</h2>
-      <button id="goToGoals">Ver Metas</button>
-    </div>
-
-    <!-- Botão para Estudos -->
-    <div class="widget">
-      <h2>Estudos</h2>
-      <button id="goToStudy">Ver Assuntos de Estudo</button>
-    </div>
-
-    <!-- Botão para Livros -->
-    <div class="widget">
-      <h2>Livros</h2>
-      <button id="goToBooks">Registrar Livros</button>
-    </div>
-
-    <!-- Botão para Largar Hábitos Ruins -->
-    <div class="widget">
-      <h2>Largar Hábitos Ruins</h2>
-      <button id="goToHabits">Registrar Hábitos</button>
-    </div>
-
-    <!-- Botão para Atividade Física -->
-    <div class="widget">
-      <h2>Atividade Física</h2>
-      <button id="goToExercise">Registrar Exercícios</button>
-    </div>
-
-    <!-- Garrafas de Água -->
-    <div class="widget">
-      <h2>Hidratação</h2>
-      <div id="waterBottles">
-        <div class="bottle" onclick="fillBottle(0)"></div>
-        <div class="bottle" onclick="fillBottle(1)"></div>
-        <div class="bottle" onclick="fillBottle(2)"></div>
-        <div class="bottle" onclick="fillBottle(3)"></div>
-        <div class="bottle" onclick="fillBottle(4)"></div>
+      <!-- Navegação -->
+      <div class="widget">
+        <div class="widget-header">
+          <i class="fas fa-compass"></i>
+          <h2>Navegação</h2>
+        </div>
+        <div class="widget-content">
+          <div class="nav-grid">
+            <button id="startPomodoro" class="nav-button">
+              <i class="fas fa-clock"></i>
+              <span>Pomodoro</span>
+            </button>
+            <button id="goToGoals" class="nav-button">
+              <i class="fas fa-bullseye"></i>
+              <span>Metas 2025</span>
+            </button>
+            <button id="goToStudy" class="nav-button">
+              <i class="fas fa-book"></i>
+              <span>Estudos</span>
+            </button>
+            <button id="goToBooks" class="nav-button">
+              <i class="fas fa-book-reader"></i>
+              <span>Livros</span>
+            </button>
+            <button id="goToHabits" class="nav-button">
+              <i class="fas fa-check-circle"></i>
+              <span>Hábitos</span>
+            </button>
+            <button id="goToExercise" class="nav-button">
+              <i class="fas fa-dumbbell"></i>
+              <span>Exercícios</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

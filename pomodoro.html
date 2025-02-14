@@ -13,13 +13,80 @@
       height: 100vh;
       background-color: #333;
       color: white;
-      font-size: 48px;
       font-family: Arial, sans-serif;
+      flex-direction: column; /* Alinha os elementos em coluna */
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra */
+      margin-bottom: 50px; /* Espaço para os botões na parte inferior */
+    }
+
+    #timer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 150px; /* Tamanho do texto do timer aumentado */
+      margin-bottom: 40px; /* Aumenta a margem inferior para afastar os botões */
+    }
+
+    #minutes, #seconds {
+      padding: 30px; /* Aumenta o padding para dar mais espaço */
+      border-radius: 10px;
+      margin: 0 10px; /* Ajusta a margem para centralizar melhor */
+      width: 120px; /* Largura fixa para os números */
+      color: white; /* Cor do texto */
+      background-color: transparent; /* Remove o fundo cinza */
+      /* border: 4px solid #555; */ /* Removido a borda */
+      display: flex; /* Usado para centralizar o texto */
+      justify-content: center; /* Centraliza horizontalmente */
+      align-items: center; /* Centraliza verticalmente */
+      box-sizing: border-box; /* Inclui padding no cálculo da largura */
+    }
+
+    #cycleCount {
+      font-size: 24px; /* Tamanho do texto do contador de ciclos */
+      margin-top: 20px;
+    }
+
+    .button-container {
+      position: absolute; /* Posiciona os botões na parte inferior da tela */
+      bottom: 20px; /* Distância do fundo da tela */
+      left: 50%;
+      transform: translateX(-50%); /* Centraliza os botões */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      background-color: #ccc; /* Cor do botão */
+      color: #333;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #aaa; /* Cor do botão ao passar o mouse */
     }
   </style>
 </head>
 <body>
-  <div id="timer">25:00</div>
+  <div class="container">
+    <div id="timer">
+      <div id="minutes">25</div>:<div id="seconds">00</div>
+    </div>
+    <div id="cycleCount">Ciclos Completos: 0</div>
+  </div>
+  <div class="button-container">
+    <button id="startButton">Iniciar</button>
+    <button id="pauseButton">Pausar</button>
+    <button id="resetButton">Reiniciar</button>
+  </div>
   <script src="pomodoro.js"></script>
 </body>
 </html>
