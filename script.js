@@ -1,203 +1,236 @@
-// Inicializa o Flatpickr
-flatpickr("#datePicker", {
-    dateFormat: "Y-m-d",
-    onChange: function(selectedDates, dateStr, instance) {
-        loadTasks(dateStr);
-        updateTodayTasks(); // Atualiza as tarefas do dia atual
-    }
-});
-
-// Armazenar tarefas por data
-const tasksByDate = {};
-
-const taskInput = document.getElementById('taskInput');
-const addTaskButton = document.getElementById('addTask');
-const taskList = document.getElementById('taskList');
-const todayTaskList = document.getElementById('todayTaskList');
-const datePicker = document.getElementById('datePicker');
-
-// Função para adicionar uma nova tarefa
-function addTask() {
-    const taskText = taskInput.value.trim();
-    const selectedDate = datePicker.value;
-
-    if (taskText && selectedDate) {
-        if (!tasksByDate[selectedDate]) {
-            tasksByDate[selectedDate] = [];
+document.addEventListener('DOMContentLoaded', () => {
+    // Habits
+    const habitInput = document.getElementById('new-habit');
+    const addHabitButton = document.getElementById('add-habit');
+    const habitsList = document.getElementById('habits-list');
+  
+    if (addHabitButton) {
+      addHabitButton.addEventListener('click', () => {
+        const habit = habitInput.value.trim();
+        if (habit) {
+          const li = document.createElement('li');
+          li.textContent = habit;
+          habitsList.appendChild(li);
+          habitInput.value = '';
         }
-
-        tasksByDate[selectedDate].push(taskText);
-        saveTasks();
-        loadTasks(selectedDate);
-        updateTodayTasks(); // Atualiza as tarefas do dia atual
-        taskInput.value = '';
-    } else {
-        alert("Por favor, insira uma tarefa e selecione uma data.");
+      });
     }
-}
-
-// Função para carregar tarefas de uma data específica
-function loadTasks(date) {
-    taskList.innerHTML = '';
-    const tasks = tasksByDate[date] || [];
-
-    tasks.forEach((task, index) => {
-        const li = document.createElement('li');
-        li.textContent = task;
-
-        const completeButton = document.createElement('button');
-        completeButton.textContent = 'Concluir';
-        completeButton.onclick = () => {
-            li.classList.toggle('completed');
-        };
-
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Editar';
-        editButton.onclick = () => {
-            const newTaskText = prompt('Edite sua tarefa:', task);
-            if (newTaskText) {
-                tasks[index] = newTaskText;
-                saveTasks();
-                loadTasks(date);
-                updateTodayTasks(); // Atualiza as tarefas do dia atual
+  
+    // Water Intake
+    let waterTotal = 0;
+    const waterInput = document.getElementById('water-amount');
+    const addWaterButton = document.getElementById('add-water');
+    const waterTotalDisplay = document.getElementById('water-total');
+  
+    if (addWaterButton) {
+      addWaterButton.addEventListener('click', () => {
+        const amount = parseInt(waterInput.value.trim(), 10);
+        if (!isNaN(amount) && amount > 0) {
+          waterTotal += amount;
+          waterTotalDisplay.textContent = `Total de água: ${waterTotal} ml`;
+          waterInput.value = '';
+        }
+      });
+    }
+  
+    // Tasks
+    const taskInput = document.getElementById('new-task');
+    const addTaskButton = document.getElementById('add-task');
+    const tasksList = document.getElementById('tasks-list');
+  
+    if (addTaskButton) {
+      addTaskButton.addEventListener('click', () => {
+        const task = taskInput.value.trim();
+        if (task) {
+          const li = document.createElement('li');
+          li.textContent = task;
+          li.addEventListener('click', () => {
+            li.style.textDecoration = li.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+          });
+          tasksList.appendChild(li);
+          taskInput.value = '';
+        }
+      });
+    }
+  
+    // Agenda
+    const agendaDateInput = document.getElementById('agenda-date');
+    const agendaNotesInput = document.getElementById('agenda-notes');
+    const saveNotesButton = document.getElementById('save-notes');
+    const agendaDisplay = document.getElementById('agenda-display');
+  
+    if (saveNotesButton) {
+      saveNotesButton.addEventListener('click', () => {
+        const date = agendaDateInput.value;
+        const notes = agendaNotesInput.value.trim();
+        if (date && notes) {
+          const div = document.createElement('div');
+          div.innerHTML = `<strong>${date}</strong><p>${notes}</p>`;
+          agendaDisplay.appendChild(div);
+          agendaNotesInput.value = '';
+        }
+      });
+    }
+  
+    // Pomodoro Timer
+    let pomodoroTimer;
+    let pomodoroTime = 1500; // 25 minutes in seconds
+    const pomodoroDisplay = document.getElementById('pomodoro-timer');
+    const startPomodoroButton = document.getElementById('start-pomodoro');
+    const resetPomodoroButton = document.getElementById('reset-pomodoro');
+  
+    const updatePomodoroDisplay = () => {
+      const minutes = Math.floor(pomodoroTime / 60);
+      const seconds = pomodoroTime % 60;
+      pomodoroDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
+  
+    if (startPomodoroButton) {
+      startPomodoroButton.addEventListener('click', () => {
+        if (!pomodoroTimer) {
+          pomodoroTimer = setInterval(() => {
+            if (pomodoroTime > 0) {
+              pomodoroTime -= 1;
+              updatePomodoroDisplay();
+            } else {
+              clearInterval(pomodoroTimer);
+              pomodoroTimer = null;
             }
-        };
-
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remover';
-        removeButton.onclick = () => {
-            tasks.splice(index, 1);
-            saveTasks();
-            loadTasks(date);
-            updateTodayTasks(); // Atualiza as tarefas do dia atual
-        };
-
-        li.appendChild(completeButton);
-        li.appendChild(editButton);
-        li.appendChild(removeButton);
-        taskList.appendChild(li);
-    });
-}
-
-// Função para atualizar as tarefas do dia atual
-function updateTodayTasks() {
-    const today = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
-    todayTaskList.innerHTML = ''; // Limpa a lista de tarefas do dia
-
-    const tasks = tasksByDate[today] || [];
-    
-    tasks.forEach((task, index) => {
-        const li = document.createElement('li');
-        li.textContent = task;
-        li.dataset.index = index; // Armazena o índice da tarefa
-
-        todayTaskList.appendChild(li);
-    });
-
-    // Inicializa o Sortable
-    new Sortable(todayTaskList, {
-        animation: 150,
-        onEnd: function (evt) {
-            const movedTask = tasks.splice(evt.oldIndex, 1)[0]; // Remove a tarefa da posição antiga
-            tasks.splice(evt.newIndex, 0, movedTask); // Adiciona a tarefa na nova posição
-            tasksByDate[today] = tasks; // Atualiza a lista de tarefas do dia atual
-            saveTasks(); // Salva as tarefas
-            updateTodayTasks(); // Atualiza a lista de tarefas do dia atual
+          }, 1000);
         }
-    });
-}
-
-// Função para salvar tarefas no localStorage
-function saveTasks() {
-    localStorage.setItem('tasksByDate', JSON.stringify(tasksByDate));
-}
-
-// Carregar tarefas do localStorage ao iniciar
-window.onload = () => {
-    const savedTasks = localStorage.getItem('tasksByDate');
-    if (savedTasks) {
-        Object.assign(tasksByDate, JSON.parse(savedTasks));
+      });
     }
-    updateTodayTasks(); // Atualiza as tarefas do dia atual ao carregar
-};
-
-// Adiciona a tarefa ao clicar no botão
-addTaskButton.addEventListener('click', addTask);
-
-// Notas Rápidas (salvas automaticamente)
-const notes = document.getElementById('notes');
-notes.value = localStorage.getItem('notes') || '';
-notes.addEventListener('input', () => {
-    localStorage.setItem('notes', notes.value);
-});
-
-// Lógica do Modo Escuro
-const toggleDarkModeButton = document.getElementById('toggleDarkMode');
-
-toggleDarkModeButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    document.body.classList.toggle('light-mode'); // Adiciona ou remove a classe light-mode
-    
-    // Atualiza o ícone do botão com base no modo atual
-    if (document.body.classList.contains('dark-mode')) {
-        toggleDarkModeButton.innerHTML = '<i class="fas fa-sun"></i>'; // Ícone do sol
-    } else {
-        toggleDarkModeButton.innerHTML = '<i class="fas fa-moon"></i>'; // Ícone da lua
+  
+    if (resetPomodoroButton) {
+      resetPomodoroButton.addEventListener('click', () => {
+        clearInterval(pomodoroTimer);
+        pomodoroTimer = null;
+        pomodoroTime = 1500;
+        updatePomodoroDisplay();
+      });
     }
-});
-
-// Lógica do Pomodoro
-const startPomodoroButton = document.getElementById('startPomodoro');
-
-startPomodoroButton.addEventListener('click', () => {
-    window.location.href = 'pomodoro.html'; // Redireciona para a página do Pomodoro
-});
-
-// Lógica para redirecionar para a página de Metas de 2025
-const goToGoalsButton = document.getElementById('goToGoals');
-
-goToGoalsButton.addEventListener('click', () => {
-    window.location.href = 'goals.html'; // Redireciona para a página de metas
-});
-
-// Lógica para redirecionar para a página de Assuntos de Estudo
-const goToStudyButton = document.getElementById('goToStudy');
-
-goToStudyButton.addEventListener('click', () => {
-    window.location.href = 'study.html'; // Redireciona para a página de estudos
-});
-
-// Lógica para preencher as garrafas de água
-let filledBottles = 0; // Contador de garrafas preenchidas
-
-function fillBottle(index) {
-    const bottles = document.querySelectorAll('.bottle');
-    
-    if (filledBottles < 5) {
-        bottles[index].classList.add('filled'); // Adiciona a classe 'filled' à garrafa clicada
-        filledBottles++; // Incrementa o contador de garrafas preenchidas
-    } else {
-        alert("Você já preencheu todas as garrafas de água!");
+  
+    if (pomodoroDisplay) {
+      updatePomodoroDisplay();
     }
-}
-
-// Lógica para redirecionar para a página de Livros
-const goToBooksButton = document.getElementById('goToBooks');
-
-goToBooksButton.addEventListener('click', () => {
-    window.location.href = 'books.html'; // Redireciona para a página de livros
-});
-
-// Lógica para redirecionar para a página de Largar Hábitos Ruins
-const goToHabitsButton = document.getElementById('goToHabits');
-
-goToHabitsButton.addEventListener('click', () => {
-    window.location.href = 'habits.html'; // Redireciona para a página de hábitos
-});
-
-// Lógica para redirecionar para a página de Atividade Física
-const goToExerciseButton = document.getElementById('goToExercise');
-
-goToExerciseButton.addEventListener('click', () => {
-    window.location.href = 'exercise.html'; // Redireciona para a página de exercícios
-});
+  
+    // Reading
+    const bookTitleInput = document.getElementById('book-title');
+    const totalPagesInput = document.getElementById('total-pages');
+    const currentPageInput = document.getElementById('current-page');
+    const updateReadingButton = document.getElementById('update-reading');
+    const readingProgressDisplay = document.getElementById('reading-progress');
+    const bookReviewInput = document.getElementById('book-review');
+    const saveReviewButton = document.getElementById('save-review');
+    const reviewDisplay = document.getElementById('review-display');
+  
+    if (updateReadingButton) {
+      updateReadingButton.addEventListener('click', () => {
+        const totalPages = parseInt(totalPagesInput.value.trim(), 10);
+        const currentPage = parseInt(currentPageInput.value.trim(), 10);
+        if (!isNaN(totalPages) && totalPages > 0 && !isNaN(currentPage) && currentPage >= 0 && currentPage <= totalPages) {
+          const progress = ((currentPage / totalPages) * 100).toFixed(2);
+          readingProgressDisplay.textContent = `Progresso: ${progress}%`;
+        }
+      });
+    }
+  
+    if (saveReviewButton) {
+      saveReviewButton.addEventListener('click', () => {
+        const title = bookTitleInput.value.trim();
+        const review = bookReviewInput.value.trim();
+        if (title && review) {
+          const div = document.createElement('div');
+          div.innerHTML = `<strong>${title}</strong><p>${review}</p>`;
+          reviewDisplay.appendChild(div);
+          bookTitleInput.value = '';
+          totalPagesInput.value = '';
+          currentPageInput.value = '';
+          bookReviewInput.value = '';
+          readingProgressDisplay.textContent = 'Progresso: 0%';
+        }
+      });
+    }
+  
+    // Mind Map
+    const mindMapNotesInput = document.getElementById('mind-map-notes');
+    const saveMindMapButton = document.getElementById('save-mind-map');
+    const mindMapDisplay = document.getElementById('mind-map-display');
+  
+    if (saveMindMapButton) {
+      saveMindMapButton.addEventListener('click', () => {
+        const notes = mindMapNotesInput.value.trim();
+        if (notes) {
+          const div = document.createElement('div');
+          div.innerHTML = `<p>${notes}</p>`;
+          mindMapDisplay.appendChild(div);
+          mindMapNotesInput.value = '';
+        }
+      });
+    }
+  
+    // Skill Tracking
+    const skillNameInput = document.getElementById('skill-name');
+    const skillNotesInput = document.getElementById('skill-notes');
+    const addSkillButton = document.getElementById('add-skill');
+    const skillsList = document.getElementById('skills-list');
+  
+    if (addSkillButton) {
+      addSkillButton.addEventListener('click', () => {
+        const skill = skillNameInput.value.trim();
+        const notes = skillNotesInput.value.trim();
+        if (skill && notes) {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${skill}</strong><p>${notes}</p>`;
+          skillsList.appendChild(li);
+          skillNameInput.value = '';
+          skillNotesInput.value = '';
+        }
+      });
+    }
+  
+    // Major Purchases
+    const purchaseItemInput = document.getElementById('purchase-item');
+    const purchaseNotesInput = document.getElementById('purchase-notes');
+    const purchaseGoalInput = document.getElementById('purchase-goal');
+    const savedAmountInput = document.getElementById('saved-amount');
+    const addPurchaseButton = document.getElementById('add-purchase');
+    const purchasesList = document.getElementById('purchases-list');
+  
+    if (addPurchaseButton) {
+      addPurchaseButton.addEventListener('click', () => {
+        const item = purchaseItemInput.value.trim();
+        const notes = purchaseNotesInput.value.trim();
+        const goal = parseFloat(purchaseGoalInput.value.trim());
+        const saved = parseFloat(savedAmountInput.value.trim());
+  
+        if (item && notes && !isNaN(goal) && goal > 0 && !isNaN(saved) && saved >= 0) {
+          const progress = ((saved / goal) * 100).toFixed(2);
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${item}</strong><p>${notes}</p><p>Objetivo: R$${goal.toFixed(2)}</p><p>Guardado: R$${saved.toFixed(2)}</p><p>Progresso: ${progress}%</p>`;
+          purchasesList.appendChild(li);
+          purchaseItemInput.value = '';
+          purchaseNotesInput.value = '';
+          purchaseGoalInput.value = '';
+          savedAmountInput.value = '';
+        }
+      });
+    }
+  
+    // Shopping List
+    const shoppingItemInput = document.getElementById('shopping-item');
+    const addShoppingItemButton = document.getElementById('add-shopping-item');
+    const shoppingList = document.getElementById('shopping-list');
+  
+    if (addShoppingItemButton) {
+      addShoppingItemButton.addEventListener('click', () => {
+        const item = shoppingItemInput.value.trim();
+        if (item) {
+          const li = document.createElement('li');
+          li.textContent = item;
+          shoppingList.appendChild(li);
+          shoppingItemInput.value = '';
+        }
+      });
+    }
+  });

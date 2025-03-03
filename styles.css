@@ -1,253 +1,96 @@
-:root {
-  --primary-color: #4f46e5;
-  --success-color: #22c55e;
-  --danger-color: #ef4444;
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --bg-primary: #202124;
-  --bg-secondary: #17191b;
-  --bg-tertiary: #2b313a;
-  --transition-speed: 0.3s;
-}
-
-/* Light Mode Variables */
-.light-mode {
-  --primary-color: #4f46e5;
-  --success-color: #22c55e;
-  --danger-color: #ef4444;
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --bg-primary: #f3f4f6;
-  --bg-secondary: #17191b;
-  --bg-tertiary: #2b313a;
-}
-
-* {
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 20px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+h1 {
+  font-size: 2.5em;
 }
 
-.widget {
-  background-color: var(--bg-secondary);
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: transform var(--transition-speed);
+section {
+  margin-bottom: 40px;
 }
 
-.widget:hover {
-  transform: translateY(-2px);
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
-.widget-header {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  background-color: var(--bg-tertiary);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+input, textarea, select {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
-.widget-header i {
-  margin-right: 0.75rem;
-  color: var(--primary-color);
-}
-
-.widget-header h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.widget-content {
-  padding: 1rem;
-}
-
-/* Input Styles */
-input, textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--bg-tertiary);
-  border-radius: 0.5rem;
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
-  transition: border-color var(--transition-speed);
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-/* Estilos para botões menores e mais modernos */
-.task-input-container {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.task-input-container input {
-  flex: 1; /* Faz o input ocupar o espaço restante */
-  padding: 0.5rem; /* Reduz o padding */
-  font-size: 0.875rem; /* Tamanho da fonte menor */
-}
-
-.icon-button {
-  width: 2rem; /* Largura menor */
-  height: 2rem; /* Altura menor */
-  border-radius: 0.25rem; /* Bordas mais arredondadas */
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: background-color var(--transition-speed);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem; /* Tamanho da fonte do ícone */
-}
-
-.icon-button:hover {
-  background-color: var(--primary-color);
-}
-
-/* Estilo para o botão do calendário */
-#datePicker {
-  padding: 0.5rem; /* Reduz o padding */
-  font-size: 0.875rem; /* Tamanho da fonte menor */
-  border: 1px solid var(--bg-tertiary);
-  border-radius: 0.25rem; /* Bordas mais arredondadas */
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
-  transition: border-color var(--transition-speed);
-}
-
-#datePicker:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-/* Task List Styles */
-.task-list {
-  list-style: none;
-}
-
-.task-list li {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  background-color: var(--bg-tertiary);
-  margin-bottom: 0.5rem;
-}
-
-.task-list li.completed {
-  opacity: 0.7;
-  text-decoration: line-through;
-}
-
-/* Button Styles */
-.nav-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
+button {
+  padding: 10px 20px;
   border: none;
-  border-radius: 0.5rem;
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
+  border-radius: 5px;
+  background-color: #6200ea;
+  color: #ffffff;
   cursor: pointer;
-  transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
-.nav-button:hover {
-  background-color: var(--primary-color);
-  transform: translateY(-2px);
+button:hover {
+  background-color: #3700b3;
 }
 
-.nav-button i {
-  font-size: 1.5rem;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-/* Water Tracker Styles */
-.water-tracker {
+li {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+}
+
+#pomodoro-timer {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.navigation ul {
+  list-style-type: none;
+  padding: 0;
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.bottle-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+.navigation li {
+  margin: 10px;
 }
 
-.bottle {
-  width: 40px;
-  height: 80px;
-  border: 2px solid var(--primary-color);
-  border-radius: 0.5rem;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
+.navigation a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 1px solid #6200ea;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.water-level {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0%;
-  background-color: var(--primary-color);
-  transition: height var(--transition-speed);
-}
-
-.bottle.filled .water-level {
-  height: 100%;
-}
-
-.bottle-label {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-
-  .dashboard {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.navigation a:hover {
+  background-color: #6200ea;
+  color: #ffffff;
 }

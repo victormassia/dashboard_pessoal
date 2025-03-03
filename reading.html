@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitura Atual</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Leitura Atual</h1>
+    </header>
+    <main>
+      <section class="reading">
+        <input type="text" id="book-title" placeholder="Título do Livro">
+        <input type="number" id="total-pages" placeholder="Total de Páginas">
+        <input type="number" id="current-page" placeholder="Página Atual">
+        <button id="update-reading">Atualizar Leitura</button>
+        <p id="reading-progress">Progresso: 0%</p>
+        <textarea id="book-review" placeholder="Resenha do Livro"></textarea>
+        <button id="save-review">Salvar Resenha</button>
+        <div id="review-display"></div>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hábitos</title>
+  <title>Agenda</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Hábitos</h1>
+      <h1>Agenda</h1>
     </header>
     <main>
-      <section class="habits">
-        <input type="text" id="new-habit" placeholder="Adicionar novo hábito">
-        <button id="add-habit">Adicionar Hábito</button>
-        <ul id="habits-list"></ul>
+      <section class="agenda">
+        <input type="date" id="agenda-date">
+        <textarea id="agenda-notes" placeholder="Anotações do dia"></textarea>
+        <button id="save-notes">Salvar Anotações</button>
+        <div id="agenda-display"></div>
       </section>
     </main>
   </div>
